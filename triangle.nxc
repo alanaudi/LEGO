@@ -14,11 +14,11 @@ task main(){
   //---------------------------------------------------------------------
   // initialization
   SetSensorLowspeed(IN_4); // declare the UltraSoeed on PORT_#4
-  bool run = FALSE ; // stop at t = 0
+  bool run = false ; // stop at t = 0
 
   int fix = 0 ; // the first loop won't be fixed angle
   int counter = 0; // at t = 0
-  bool turn = false ; // at t = 0
+  bool turn = true ; // at t = 0
   //---------------------------------------------------------------------
   // always executed
   while(true){

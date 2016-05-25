@@ -9,7 +9,7 @@ task main(){
   //---------------------------------------------------------------------
   // initialization
   SetSensorLowspeed(IN_4); // declare the UltraSoeed on PORT_#4
-  bool run = FALSE ;
+  bool run = false ;
   //---------------------------------------------------------------------
   // always executed
   while(true){
