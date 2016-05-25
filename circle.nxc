@@ -26,7 +26,7 @@ task main(){
     //-------------------------------------------------------------------
     // draw a circle
     if(run){
-      OnFwd(OUT_B, 20);		// 以30% power正轉
+      OnFwd(OUT_B, 20);	
       OnFwd(OUT_C, 60);
     }else{
       Off(OUT_B);
