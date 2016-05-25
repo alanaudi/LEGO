@@ -6,15 +6,15 @@
 #define _POWER_C 60
 //-----------------------------------------------------------------------
 task main(){
-	//---------------------------------------------------------------------
-	// initialization
+  //---------------------------------------------------------------------
+  // initialization
   SetSensorLowspeed(IN_4); // declare the UltraSoeed on PORT_#4
   bool run = FALSE ;
-	//---------------------------------------------------------------------
-	// always executed
+  //---------------------------------------------------------------------
+  // always executed
   while(true){
-		//-------------------------------------------------------------------
-		// if something sensed, change state
+    //-------------------------------------------------------------------
+    // if something sensed, change state
     if(SensorUS(IN_4) <= _NEAR){
       Wait(700); // the checking time should be long enough
       if(run){
@@ -23,8 +23,8 @@ task main(){
         run = true;
       }// end if else run
     }// end if
-		//-------------------------------------------------------------------
-		// draw a circle
+    //-------------------------------------------------------------------
+    // draw a circle
     if(run){
       OnFwd(OUT_B, 20);		// 以30% power正轉
       OnFwd(OUT_C, 60);

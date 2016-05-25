@@ -11,19 +11,19 @@
 #define _POWER_LEFT 40
 //-----------------------------------------------------------------------
 task main(){
-	//---------------------------------------------------------------------
-	// initialization
+  //---------------------------------------------------------------------
+  // initialization
   SetSensorLowspeed(IN_4); // declare the UltraSoeed on PORT_#4
   bool run = FALSE ; // stop at t = 0
 
-	int fix = 0 ; // the first loop won't be fixed angle
+  int fix = 0 ; // the first loop won't be fixed angle
   int counter = 0; // at t = 0
   bool turn = false ; // at t = 0
-	//---------------------------------------------------------------------
-	// always executed
+  //---------------------------------------------------------------------
+  // always executed
   while(true){
-		//-------------------------------------------------------------------
-		// if something sensed, change state
+    //-------------------------------------------------------------------
+    // if something sensed, change state
     if(SensorUS(IN_4) <= _NEAR){
       Wait(700); // the checking time should be long enough
       if(run){
@@ -32,43 +32,43 @@ task main(){
         run = true;
       }// end if else
     }// end if
-		//-------------------------------------------------------------------
+    //-------------------------------------------------------------------
     if(run){
-			if(turn){
-				//---------------------------------------------------------------
-				// go straight for 5s
-				OnFwd(OUT_B, 30);
-				OnFwd(OUT_C, 30);
-				Wait(5000); // turn for 5s
-				Off(OUT_B); // stop
-				Off(OUT_C); // stop
-				//---------------------------------------------------------------
-				// the even fixed angle
-				if(( 0 <= counter ) && ( counter < 3 )){
-					fix = 0 ;
-				}else if(( 3 <= counter ) && ( counter < 6 )){
-					fix = 1;
-				}else if( counter == 6 ){
-					counter = 0;
-					fix = 0;
-				}// end else if counter
-				//---------------------------------------------------------------
-				// turn left 120 degree and fix or not
-				if(fix==0){
-					RotateMotor(OUT_B, 40, 450 ); // turn left 120 degrees
-					TextOut(0,LCD_LINE1,"counter: "); // print "ounter:"
-					NumOut(50,LCD_LINE1,counter); // print counter
-					TextOut(0,LCD_LINE2,"normal"); // show fix status
-					counter ++ ;
-				}else{
-					RotateMotor(OUT_B, 40, 400 ); // turn left 120 degrees
-					TextOut(0,LCD_LINE1,"counter");	// print "counter:"
-					NumOut(50,LCD_LINE1,counter); // print counter
-					TextOut(0,LCD_LINE2,"fixed"); // show fix status
-					counter ++;
-				}// end if else fix
-				//---------------------------------------------------------------
-			}// end if turn
+      if(turn){
+        //---------------------------------------------------------------
+        // go straight for 5s
+        OnFwd(OUT_B, 30);
+        OnFwd(OUT_C, 30);
+        Wait(5000); // turn for 5s
+        Off(OUT_B); // stop
+        Off(OUT_C); // stop
+        //---------------------------------------------------------------
+        // the even fixed angle
+        if(( 0 <= counter ) && ( counter < 3 )){
+          fix = 0 ;
+        }else if(( 3 <= counter ) && ( counter < 6 )){
+          fix = 1;
+        }else if( counter == 6 ){
+          counter = 0;
+          fix = 0;
+        }// end else if counter
+        //---------------------------------------------------------------
+        // turn left 120 degree and fix or not
+        if(fix==0){
+          RotateMotor(OUT_B, 40, 450 ); // turn left 120 degrees
+          TextOut(0,LCD_LINE1,"counter: "); // print "ounter:"
+          NumOut(50,LCD_LINE1,counter); // print counter
+          TextOut(0,LCD_LINE2,"normal"); // show fix status
+          counter ++ ;
+        }else{
+          RotateMotor(OUT_B, 40, 400 ); // turn left 120 degrees
+          TextOut(0,LCD_LINE1,"counter");	// print "counter:"
+          NumOut(50,LCD_LINE1,counter); // print counter
+          TextOut(0,LCD_LINE2,"fixed"); // show fix status
+          counter ++;
+        }// end if else fix
+        //---------------------------------------------------------------
+      }// end if turn
     }else{
       Off(OUT_B); // turn off
       Off(OUT_C); // turn off
