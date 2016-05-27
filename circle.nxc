@@ -29,7 +29,7 @@ task main(){
       OnFwd(OUT_B, 20);	
       OnFwd(OUT_C, 60);
     }else{
-			Off(OUT_B);
+      Off(OUT_B);
       Off(OUT_C);
     }// end if else circle
   }// end while
