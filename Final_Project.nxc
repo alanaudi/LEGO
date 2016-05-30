@@ -1,0 +1,101 @@
+//-----------------------------------------------------------------------
+#include "NXCDefs.h"
+#define _NEAR 20
+#define _PEN_U 40
+#define _PEN_D 50
+#define _PEN_TIME 600
+#define _FWD1 3000
+#define _FWD2 900
+#define _BACK 2800
+#define _FWD_POWER_L 37
+#define _FWD_POWER_R 35
+#define _FWD_POWER 35
+#define _BACK_POWER 35
+#define _PEN_POWER 50
+//-----------------------------------------------------------------------
+task main(){
+  //---------------------------------------------------------------------
+  // initialization
+  SetSensorLowspeed(IN_4); // declare the UltraSoeed on PORT_#4
+  SetSensorSound(IN_2);
+  SetSensor(IN_1,SENSOR_TOUCH);
+  bool run = false ; // stop at t = 0
+
+  int fix = 0 ; // the first loop won't be fixed angle
+  int counter = 0; // at t = 0
+  bool turn = true ; // at t = 0
+  int i=0;
+  int a=0;
+  //---------------------------------------------------------------------
+  while(true){
+    //-------------------------------------------------------------------
+    if(Sensor(IN_1)==1){
+      run = true;
+    }// end if
+    if(Sensor(IN_2) >= 80){
+      run=true;
+    }// end if
+    // draw a circle */
+    if(run){
+      for(a = 0 ; a < 17; a++){
+        OnFwd(OUT_B, 15);
+        OnFwd(OUT_C, 60);
+        if(SensorUS(IN_4) <= _NEAR){
+          run=false;
+          break;
+        }// end if
+        if(a == 2){
+          RotateMotor(OUT_A, 50, 50);
+        }// end if
+        Wait(700);
+      }// end for
+      a=0;
+      RotateMotor(OUT_A, 50, -50);
+      Off(OUT_B);
+      Off(OUT_C);
+    }// end if else circle
+    //-------------------------------------------------------------------
+    while(run){
+      if(turn){
+        if(i==0){
+          OnFwd(OUT_C, 50);
+          Wait(1200);
+          Off(OUT_C);
+        }// end if
+        RotateMotor(OUT_A, 50, 50);
+        OnFwd(OUT_B, 35);
+        OnFwd(OUT_C, 35);
+        Wait(3200);
+        RotateMotor(OUT_A, 50, -50);
+        Off(OUT_B);
+        Off(OUT_C);
+        if(SensorUS(IN_4) <= _NEAR){
+          run=false;
+          break;
+        }// end if
+        OnRev(OUT_B, 35);
+        OnRev(OUT_C, 35);
+        Wait(3600);
+        Off(OUT_B);
+        Off(OUT_C);
+        for(i=0; i < 14; i++){
+          OnFwd(OUT_C, 50);
+          Wait(300);
+          Off(OUT_B);
+          Off(OUT_C);
+          if(SensorUS(IN_4) <= _NEAR){
+            run=false;
+            break;
+          }// end if
+        }// end for
+        OnRev(OUT_B, 35);
+        OnRev(OUT_C, 35);
+        Wait(100);
+        Off(OUT_B);
+        Off(OUT_C);
+        a++;
+        //---------------------------------------------------------------
+      }// end if turn
+    }// end while
+  }// end while
+}// end task

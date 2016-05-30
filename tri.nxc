@@ -40,8 +40,11 @@ task main(){
         OnFwd(OUT_B, 30);
         OnFwd(OUT_C, 30);
         Wait(5000); // turn for 5s
+        OnRev(OUT_B, 30);
+        OnRev(OUT_C, 30);
         Off(OUT_B); // stop
         Off(OUT_C); // stop
+        Wait(1000); // turn for 5s
         //---------------------------------------------------------------
         // the even fixed angle
         if(( 0 <= counter ) && ( counter < 3 )){
